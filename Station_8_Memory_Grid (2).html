@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Station 8 – Memory Grid</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .instructions {
+      margin-bottom: 20px;
+    }
+    .matrix {
+      margin-top: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    #revealBtn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #revealBtn:hover {
+      background-color: #2980b9;
+    }
+    #after-timer {
+      display: none;
+      text-align: center;
+      font-size: 18px;
+      color: #e74c3c;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Station 8 – Memory Grid</h1>
+    <div class="instructions">
+      <p>🧠 <strong>Challenge:</strong> Memorize the DX & DME Product Integration matrix in <strong>45 seconds</strong>.</p>
+      <p>🧾 Reproduce the same on the whiteboard next to the station.</p>
+      <p>📸 Once done, click a photo and send it to the game master.</p>
+      <p>🚫 No cheating—no screenshots or photos allowed!</p>
+      <p>⏱️ You have less than <strong>10 minutes</strong> to complete the task.</p>
+    </div>
+    <button id="revealBtn">Click to Reveal Matrix</button>
+    <div id="matrix" class="matrix" style="display:none;">
+      <table>
+        <tr>
+          <th>Solutions</th>
+          <th>AEM Assets</th>
+          <th>Workfront</th>
+          <th>GS 4 PeM</th>
+        </tr>
+        <tr>
+          <td>Adobe Express</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+        </tr>
+        <tr>
+          <td>FF Services</td>
+          <td></td>
+          <td></td>
+          <td>X</td>
+        </tr>
+        <tr>
+          <td>Frame.io</td>
+          <td></td>
+          <td>X</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>CC Apps</td>
+          <td>X</td>
+          <td>X</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>FF Custom Models</td>
+          <td></td>
+          <td></td>
+          <td>X</td>
+        </tr>
+      </table>
+    </div>
+    <div id="after-timer">
+      ⏳ Time’s up! Now recreate the matrix from memory on the whiteboard.
+    </div>
+  </div>
+
+  <script>
+    const revealBtn = document.getElementById("revealBtn");
+    const matrixDiv = document.getElementById("matrix");
+    const afterTimerDiv = document.getElementById("after-timer");
+
+    function showMatrix() {
+      revealBtn.style.display = "none";
+      matrixDiv.style.display = "block";
+      localStorage.setItem("matrixRevealed", "true");
+      setTimeout(() => {
+        matrixDiv.style.display = "none";
+        afterTimerDiv.style.display = "block";
+        localStorage.setItem("matrixExpired", "true");
+      }, 45000);
+    }
+
+    revealBtn.addEventListener("click", showMatrix);
+
+    window.onload = function() {
+      if (localStorage.getItem("matrixExpired") === "true") {
+        revealBtn.style.display = "none";
+        matrixDiv.style.display = "none";
+        afterTimerDiv.style.display = "block";
+      }
+    };
+  </script>
+</body>
+</html>
